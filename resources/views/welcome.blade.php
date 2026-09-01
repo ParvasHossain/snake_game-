@@ -36,19 +36,29 @@
         <div class="relative flex justify-center">
             <canvas id="gameCanvas" width="400" height="400" class="rounded-lg"></canvas>
             
-            <!-- Mobile On-Screen D-Pad Controls -->
-<div id="mobile-controls" class="flex flex-col items-center justify-center mt-6 select-none md:hidden">
-    <div class="flex justify-center">
-        <button type="button" id="btn-up" class="w-14 h-14 m-1 bg-slate-700 hover:bg-slate-600 active:bg-slate-500 rounded-lg text-2xl font-bold border-2 border-slate-500 active:scale-95 transition-all">▲</button>
+           <!-- Main Game Container -->
+<div class="flex flex-col items-center justify-center w-full max-w-md px-4 mx-auto">
+    
+    <!-- Canvas Wrapper (Responsive scaling so it never cuts off on mobile screens) -->
+    <div class="w-full aspect-square flex justify-center items-center">
+        <canvas id="gameCanvas" width="400" height="400" class="w-full h-full max-w-[400px] max-h-[400px] object-contain rounded-lg border-4 border-slate-700 bg-slate-900 shadow-xl"></canvas>
     </div>
-    <div class="flex justify-center">
-        <button type="button" id="btn-left" class="w-14 h-14 m-1 bg-slate-700 hover:bg-slate-600 active:bg-slate-500 rounded-lg text-2xl font-bold border-2 border-slate-500 active:scale-95 transition-all">◀</button>
-        <div class="w-14 h-14 m-1"></div> <!-- Blank space center -->
-        <button type="button" id="btn-right" class="w-14 h-14 m-1 bg-slate-700 hover:bg-slate-600 active:bg-slate-500 rounded-lg text-2xl font-bold border-2 border-slate-500 active:scale-95 transition-all">▶</button>
+
+    <!-- Arrow Keys Container (Stacked strictly below the game screen) -->
+    <div id="mobile-controls" class="flex flex-col items-center justify-center mt-4 mb-4 select-none w-full">
+        <div class="flex justify-center">
+            <button type="button" id="btn-up" class="w-12 h-12 m-1 bg-slate-700 hover:bg-slate-600 active:bg-slate-500 rounded-lg text-xl font-bold border-2 border-slate-500 active:scale-95 transition-all text-white">▲</button>
+        </div>
+        <div class="flex justify-center">
+            <button type="button" id="btn-left" class="w-12 h-12 m-1 bg-slate-700 hover:bg-slate-600 active:bg-slate-500 rounded-lg text-xl font-bold border-2 border-slate-500 active:scale-95 transition-all text-white">◀</button>
+            <div class="w-12 h-12 m-1"></div>
+            <button type="button" id="btn-right" class="w-12 h-12 m-1 bg-slate-700 hover:bg-slate-600 active:bg-slate-500 rounded-lg text-xl font-bold border-2 border-slate-500 active:scale-95 transition-all text-white">▶</button>
+        </div>
+        <div class="flex justify-center">
+            <button type="button" id="btn-down" class="w-12 h-12 m-1 bg-slate-700 hover:bg-slate-600 active:bg-slate-500 rounded-lg text-xl font-bold border-2 border-slate-500 active:scale-95 transition-all text-white">▼</button>
+        </div>
     </div>
-    <div class="flex justify-center">
-        <button type="button" id="btn-down" class="w-14 h-14 m-1 bg-slate-700 hover:bg-slate-600 active:bg-slate-500 rounded-lg text-2xl font-bold border-2 border-slate-500 active:scale-95 transition-all">▼</button>
-    </div>
+
 </div>
             <!-- Game Over Overlay -->
             <div id="gameOverScreen" class="absolute inset-0 bg-black/80 flex flex-col items-center justify-center rounded-lg hidden">
