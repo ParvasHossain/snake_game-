@@ -36,26 +36,26 @@
         <div class="relative flex justify-center">
             <canvas id="gameCanvas" width="400" height="400" class="rounded-lg"></canvas>
             
-           <!-- Main Game Container -->
-<div class="flex flex-col items-center justify-center w-full max-w-md px-4 mx-auto">
+          <!-- Main Game Wrapper (Forced Vertical Stacking) -->
+<div style="display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 420px; margin: 0 auto;">
     
-    <!-- Canvas Wrapper (Responsive scaling so it never cuts off on mobile screens) -->
-    <div class="w-full aspect-square flex justify-center items-center">
-        <canvas id="gameCanvas" width="400" height="400" class="w-full h-full max-w-[400px] max-h-[400px] object-contain rounded-lg border-4 border-slate-700 bg-slate-900 shadow-xl"></canvas>
+    <!-- Canvas Card Wrapper -->
+    <div style="width: 100%; display: flex; justify-content: center; background-color: #0f172a; border: 1px solid #1e293b; border-radius: 12px; padding: 16px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);">
+        <canvas id="gameCanvas" width="400" height="400" style="width: 100%; height: auto; max-width: 400px; aspect-ratio: 1 / 1; border: 4px solid #1f2937; background-color: #111827; border-radius: 8px;"></canvas>
     </div>
 
-    <!-- Arrow Keys Container (Stacked strictly below the game screen) -->
-    <div id="mobile-controls" class="flex flex-col items-center justify-center mt-4 mb-4 select-none w-full">
-        <div class="flex justify-center">
-            <button type="button" id="btn-up" class="w-12 h-12 m-1 bg-slate-700 hover:bg-slate-600 active:bg-slate-500 rounded-lg text-xl font-bold border-2 border-slate-500 active:scale-95 transition-all text-white">▲</button>
+    <!-- D-Pad Controls (Placed directly below the card) -->
+    <div id="mobile-controls" style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin-top: 20px; width: 100%; user-select: none; -webkit-user-select: none;">
+        <div style="display: flex; justify-content: center;">
+            <button type="button" id="btn-up" style="width: 50px; height: 50px; margin: 4px; background-color: #334155; border: 2px solid #64748b; color: white; border-radius: 8px; font-size: 20px; cursor: pointer;">▲</button>
         </div>
-        <div class="flex justify-center">
-            <button type="button" id="btn-left" class="w-12 h-12 m-1 bg-slate-700 hover:bg-slate-600 active:bg-slate-500 rounded-lg text-xl font-bold border-2 border-slate-500 active:scale-95 transition-all text-white">◀</button>
-            <div class="w-12 h-12 m-1"></div>
-            <button type="button" id="btn-right" class="w-12 h-12 m-1 bg-slate-700 hover:bg-slate-600 active:bg-slate-500 rounded-lg text-xl font-bold border-2 border-slate-500 active:scale-95 transition-all text-white">▶</button>
+        <div style="display: flex; justify-content: center;">
+            <button type="button" id="btn-left" style="width: 50px; height: 50px; margin: 4px; background-color: #334155; border: 2px solid #64748b; color: white; border-radius: 8px; font-size: 20px; cursor: pointer;">◀</button>
+            <div style="width: 50px; height: 50px; margin: 4px;"></div>
+            <button type="button" id="btn-right" style="width: 50px; height: 50px; margin: 4px; background-color: #334155; border: 2px solid #64748b; color: white; border-radius: 8px; font-size: 20px; cursor: pointer;">▶</button>
         </div>
-        <div class="flex justify-center">
-            <button type="button" id="btn-down" class="w-12 h-12 m-1 bg-slate-700 hover:bg-slate-600 active:bg-slate-500 rounded-lg text-xl font-bold border-2 border-slate-500 active:scale-95 transition-all text-white">▼</button>
+        <div style="display: flex; justify-content: center;">
+            <button type="button" id="btn-down" style="width: 50px; height: 50px; margin: 4px; background-color: #334155; border: 2px solid #64748b; color: white; border-radius: 8px; font-size: 20px; cursor: pointer;">▼</button>
         </div>
     </div>
 
