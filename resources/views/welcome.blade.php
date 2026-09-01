@@ -6,22 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Laravel Snake Game</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        canvas {
-            border: 4px solid #1f2937;
-            background-color: #111827;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
-        }
-    </style>
 </head>
-<body class="bg-slate-900 text-white min-h-screen flex flex-col items-center justify-center font-sans">
+<body class="bg-slate-900 text-white min-h-screen flex flex-col items-center justify-center font-sans py-6">
 
     <div class="text-center max-w-md w-full px-4">
-        <h1 class="text-4xl font-extrabold mb-2 text-emerald-400 tracking-wide uppercase">Snake Game</h1>
-        <p class="text-slate-400 mb-6 text-sm">Built with PHP Laravel & JavaScript</p>
+        <h1 class="text-3xl md:text-4xl font-extrabold mb-1 text-emerald-400 tracking-wide uppercase">Snake Game</h1>
+        <p class="text-slate-400 mb-4 text-sm">Built with PHP Laravel & JavaScript</p>
 
         <!-- Scoreboard -->
-        <div class="flex justify-between bg-slate-800 p-4 rounded-lg mb-6 border border-slate-700">
+        <div class="flex justify-between bg-slate-800 p-4 rounded-lg mb-4 border border-slate-700 shadow-md">
             <div>
                 <span class="text-xs uppercase tracking-wider text-slate-400 block">Score</span>
                 <span id="score" class="text-2xl font-bold text-white">0</span>
@@ -32,36 +25,12 @@
             </div>
         </div>
 
-        <!-- Game Canvas -->
-        <div class="relative flex justify-center">
-            <canvas id="gameCanvas" width="400" height="400" class="rounded-lg"></canvas>
+        <!-- Game Screen Container -->
+        <div class="relative w-full aspect-square max-w-[400px] mx-auto">
+            <canvas id="gameCanvas" width="400" height="400" class="w-full h-full rounded-lg border-4 border-slate-700 bg-slate-900 shadow-xl object-contain"></canvas>
             
-          <!-- Main Game Wrapper (Forced Vertical Stacking) -->
-<div style="display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 420px; margin: 0 auto;">
-    
-    <!-- Canvas Card Wrapper -->
-    <div style="width: 100%; display: flex; justify-content: center; background-color: #0f172a; border: 1px solid #1e293b; border-radius: 12px; padding: 16px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);">
-        <canvas id="gameCanvas" width="400" height="400" style="width: 100%; height: auto; max-width: 400px; aspect-ratio: 1 / 1; border: 4px solid #1f2937; background-color: #111827; border-radius: 8px;"></canvas>
-    </div>
-
-    <!-- D-Pad Controls (Placed directly below the card) -->
-    <div id="mobile-controls" style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin-top: 20px; width: 100%; user-select: none; -webkit-user-select: none;">
-        <div style="display: flex; justify-content: center;">
-            <button type="button" id="btn-up" style="width: 50px; height: 50px; margin: 4px; background-color: #334155; border: 2px solid #64748b; color: white; border-radius: 8px; font-size: 20px; cursor: pointer;">▲</button>
-        </div>
-        <div style="display: flex; justify-content: center;">
-            <button type="button" id="btn-left" style="width: 50px; height: 50px; margin: 4px; background-color: #334155; border: 2px solid #64748b; color: white; border-radius: 8px; font-size: 20px; cursor: pointer;">◀</button>
-            <div style="width: 50px; height: 50px; margin: 4px;"></div>
-            <button type="button" id="btn-right" style="width: 50px; height: 50px; margin: 4px; background-color: #334155; border: 2px solid #64748b; color: white; border-radius: 8px; font-size: 20px; cursor: pointer;">▶</button>
-        </div>
-        <div style="display: flex; justify-content: center;">
-            <button type="button" id="btn-down" style="width: 50px; height: 50px; margin: 4px; background-color: #334155; border: 2px solid #64748b; color: white; border-radius: 8px; font-size: 20px; cursor: pointer;">▼</button>
-        </div>
-    </div>
-
-</div>
             <!-- Game Over Overlay -->
-            <div id="gameOverScreen" class="absolute inset-0 bg-black/80 flex flex-col items-center justify-center rounded-lg hidden">
+            <div id="gameOverScreen" class="absolute inset-0 bg-black/80 flex flex-col items-center justify-center rounded-lg hidden z-10">
                 <h2 class="text-3xl font-black text-red-500 mb-2">GAME OVER</h2>
                 <p class="text-slate-300 mb-4">Final Score: <span id="finalScore" class="font-bold text-white">0</span></p>
                 <button onclick="resetGame()" class="bg-emerald-500 hover:bg-emerald-400 text-slate-900 font-bold py-2 px-6 rounded-full transition transform hover:scale-105 active:scale-95 shadow-lg">
@@ -69,21 +38,31 @@
                 </button>
             </div>
         </div>
-<!-- View Scores Button -->
-<div class="mt-5 text-center">
 
-    <a href="{{ route('scores.index') }}"
-       class="inline-block bg-blue-500 hover:bg-blue-400
-              text-white font-bold py-3 px-8
-              rounded-full transition shadow-lg">
+        <!-- Mobile Arrow Buttons (Strictly Below Canvas) -->
+        <div id="mobile-controls" class="flex flex-col items-center justify-center mt-5 mb-3 select-none w-full">
+            <div class="flex justify-center">
+                <button type="button" id="btn-up" class="w-12 h-12 m-1 bg-slate-800 hover:bg-slate-700 active:bg-slate-600 rounded-lg text-xl font-bold border border-slate-600 text-white shadow-md active:scale-95">▲</button>
+            </div>
+            <div class="flex justify-center">
+                <button type="button" id="btn-left" class="w-12 h-12 m-1 bg-slate-800 hover:bg-slate-700 active:bg-slate-600 rounded-lg text-xl font-bold border border-slate-600 text-white shadow-md active:scale-95">◀</button>
+                <div class="w-12 h-12 m-1"></div>
+                <button type="button" id="btn-right" class="w-12 h-12 m-1 bg-slate-800 hover:bg-slate-700 active:bg-slate-600 rounded-lg text-xl font-bold border border-slate-600 text-white shadow-md active:scale-95">▶</button>
+            </div>
+            <div class="flex justify-center">
+                <button type="button" id="btn-down" class="w-12 h-12 m-1 bg-slate-800 hover:bg-slate-700 active:bg-slate-600 rounded-lg text-xl font-bold border border-slate-600 text-white shadow-md active:scale-95">▼</button>
+            </div>
+        </div>
 
-        🏆 View High Scores
+        <!-- View Scores Button -->
+        <div class="mt-4 text-center">
+            <a href="{{ route('scores.index') }}" class="inline-block bg-blue-600 hover:bg-blue-500 text-white font-bold py-2.5 px-6 rounded-full transition shadow-lg text-sm">
+                🏆 View High Scores
+            </a>
+        </div>
 
-    </a>
-
-</div>
         <!-- Instructions -->
-        <div class="mt-6 text-xs text-slate-500 bg-slate-800/50 p-3 rounded border border-slate-800">
+        <div class="mt-4 text-xs text-slate-500 bg-slate-800/50 p-3 rounded border border-slate-800">
             Use <span class="bg-slate-700 text-slate-300 px-1.5 py-0.5 rounded font-mono">Arrow Keys</span> or 
             <span class="bg-slate-700 text-slate-300 px-1.5 py-0.5 rounded font-mono">W A S D</span> to navigate.
         </div>
@@ -91,48 +70,46 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-    const bindBtn = (id, keyName) => {
-        const btn = document.getElementById(id);
-        if (btn) {
-            btn.addEventListener('click', (e) => {
-                e.preventDefault();
-                // Simulates pushing the arrow keys on a physical keyboard
-                document.dispatchEvent(new KeyboardEvent('keydown', { key: keyName }));
-            });
-        }
-    };
+            const bindBtn = (id, keyName) => {
+                const btn = document.getElementById(id);
+                if (btn) {
+                    btn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        document.dispatchEvent(new KeyboardEvent('keydown', { key: keyName }));
+                    });
+                }
+            };
 
-    bindBtn('btn-up', 'ArrowUp');
-    bindBtn('btn-down', 'ArrowDown');
-    bindBtn('btn-left', 'ArrowLeft');
-    bindBtn('btn-right', 'ArrowRight');
-});
+            bindBtn('btn-up', 'ArrowUp');
+            bindBtn('btn-down', 'ArrowDown');
+            bindBtn('btn-left', 'ArrowLeft');
+            bindBtn('btn-right', 'ArrowRight');
+        });
+
         function saveGameScore(playerScore) {
-    // 1. Prompt the player for their score card name profile
-    let username = prompt("Game Over! Enter your name to save your score:", "Guest");
-    if (!username) username = "Guest";
+            let username = prompt("Game Over! Enter your name to save your score:", "Guest");
+            if (!username) username = "Guest";
 
-    // 2. Transmit the score payload straight to your Laravel Backend
-    fetch('/save-score', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-        },
-        body: JSON.stringify({
-            username: username,
-            score: playerScore
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if(data.success) {
-            console.log("Database updated successfully!", data);
-            alert("Score saved! " + username + ": " + playerScore);
+            fetch('/save-score', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({
+                    username: username,
+                    score: playerScore
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.success) {
+                    console.log("Database updated successfully!", data);
+                    alert("Score saved! " + username + ": " + playerScore);
+                }
+            })
+            .catch(error => console.error('Error saving score to database:', error));
         }
-    })
-    .catch(error => console.error('Error saving score to database:', error));
-}
 
         const canvas = document.getElementById("gameCanvas");
         const ctx = canvas.getContext("2d");
@@ -152,11 +129,10 @@
         let highScore = localStorage.getItem("snakeHighScore") || 0;
         let gameInterval;
         let gameRunning = true;
-        let changingDirection = false; // Prevents fast consecutive inputs from causing self-collision
+        let changingDirection = false;
 
         highScoreElement.innerText = highScore;
 
-        // Handle Inputs
         document.addEventListener("keydown", changeDirection);
 
         function main() {
@@ -183,7 +159,7 @@
 
         function drawSnake() {
             snake.forEach((part, index) => {
-                ctx.fillStyle = index === 0 ? "#34d399" : "#10b981"; // Head is lighter green
+                ctx.fillStyle = index === 0 ? "#34d399" : "#10b981";
                 ctx.strokeStyle = "#111827";
                 ctx.fillRect(part.x * gridSize, part.y * gridSize, gridSize - 2, gridSize - 2);
             });
@@ -206,7 +182,6 @@
             food.x = Math.floor(Math.random() * tileCount);
             food.y = Math.floor(Math.random() * tileCount);
 
-            // Don't spawn food inside snake
             snake.forEach(part => {
                 if (part.x === food.x && part.y === food.y) {
                     generateFood();
@@ -215,7 +190,7 @@
         }
 
         function drawFood() {
-            ctx.fillStyle = "#f43f5e"; // Rose red
+            ctx.fillStyle = "#f43f5e";
             ctx.fillRect(food.x * gridSize, food.y * gridSize, gridSize - 2, gridSize - 2);
         }
 
@@ -243,11 +218,9 @@
         }
 
         function hasGameEnded() {
-            // Self collision
             for (let i = 4; i < snake.length; i++) {
                 if (snake[i].x === snake[0].x && snake[i].y === snake[0].y) return true;
             }
-            // Boundary collision
             return (
                 snake[0].x < 0 ||
                 snake[0].x >= tileCount ||
@@ -270,24 +243,21 @@
         }
 
         function resetGame() {
-    // 1. If they scored points, save it to MySQL before clearing out the variables
-    if (score > 0) {
-        saveGameScore(score);
-    }
+            if (score > 0) {
+                saveGameScore(score);
+            }
 
-    snake = [{ x: 10, y: 10 }];
-    dx = 1;
-    dy = 0;
-    score = 0;
-    scoreElement.innerText = score;
-    gameOverScreen.classList.add("hidden");
-    generateFood();
-    gameRunning = true;
-    startGame();
-}
+            snake = [{ x: 10, y: 10 }];
+            dx = 1;
+            dy = 0;
+            score = 0;
+            scoreElement.innerText = score;
+            gameOverScreen.classList.add("hidden");
+            generateFood();
+            gameRunning = true;
+            startGame();
+        }
 
-
-        // Initialize First Run
         generateFood();
         startGame();
     </script>
