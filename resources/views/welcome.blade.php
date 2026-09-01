@@ -36,6 +36,20 @@
         <div class="relative flex justify-center">
             <canvas id="gameCanvas" width="400" height="400" class="rounded-lg"></canvas>
             
+            <!-- Mobile On-Screen D-Pad Controls -->
+<div id="mobile-controls" class="flex flex-col items-center justify-center mt-6 select-none md:hidden">
+    <div class="flex justify-center">
+        <button type="button" id="btn-up" class="w-14 h-14 m-1 bg-slate-700 hover:bg-slate-600 active:bg-slate-500 rounded-lg text-2xl font-bold border-2 border-slate-500 active:scale-95 transition-all">▲</button>
+    </div>
+    <div class="flex justify-center">
+        <button type="button" id="btn-left" class="w-14 h-14 m-1 bg-slate-700 hover:bg-slate-600 active:bg-slate-500 rounded-lg text-2xl font-bold border-2 border-slate-500 active:scale-95 transition-all">◀</button>
+        <div class="w-14 h-14 m-1"></div> <!-- Blank space center -->
+        <button type="button" id="btn-right" class="w-14 h-14 m-1 bg-slate-700 hover:bg-slate-600 active:bg-slate-500 rounded-lg text-2xl font-bold border-2 border-slate-500 active:scale-95 transition-all">▶</button>
+    </div>
+    <div class="flex justify-center">
+        <button type="button" id="btn-down" class="w-14 h-14 m-1 bg-slate-700 hover:bg-slate-600 active:bg-slate-500 rounded-lg text-2xl font-bold border-2 border-slate-500 active:scale-95 transition-all">▼</button>
+    </div>
+</div>
             <!-- Game Over Overlay -->
             <div id="gameOverScreen" class="absolute inset-0 bg-black/80 flex flex-col items-center justify-center rounded-lg hidden">
                 <h2 class="text-3xl font-black text-red-500 mb-2">GAME OVER</h2>
@@ -66,6 +80,23 @@
     </div>
 
     <script>
+        document.addEventListener('DOMContentLoaded', () => {
+    const bindBtn = (id, keyName) => {
+        const btn = document.getElementById(id);
+        if (btn) {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                // Simulates pushing the arrow keys on a physical keyboard
+                document.dispatchEvent(new KeyboardEvent('keydown', { key: keyName }));
+            });
+        }
+    };
+
+    bindBtn('btn-up', 'ArrowUp');
+    bindBtn('btn-down', 'ArrowDown');
+    bindBtn('btn-left', 'ArrowLeft');
+    bindBtn('btn-right', 'ArrowRight');
+});
         function saveGameScore(playerScore) {
     // 1. Prompt the player for their score card name profile
     let username = prompt("Game Over! Enter your name to save your score:", "Guest");
