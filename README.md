@@ -1,3 +1,5 @@
+<video src="Snake Game Outputs Images And Videos/Laravel Snake Game Output.mp4" controls width="100%"></video>
+
 # Snake Game - Laravel Edition
 
 A classic Snake game built using PHP and the Laravel framework.
