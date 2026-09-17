@@ -1,3 +1,11 @@
+<table>
+  <tr>
+    <td width="33%"><img src="Snake Game Outputs Images And Videos/Game Screen.jpg.jpeg" alt="Game Screen"></td>
+      <td width="33%"><img src="Snake Game Outputs Images And Videos/Game Over Screen.jpg.jpeg" alt="Game Over Screen"></td>
+    <td width="33%"><img src="Snake Game Outputs Images And Videos/High Score Screen.jpg.jpeg" alt="High Score Screen"></td>
+  </tr>
+</table>
+
 # Snake Game - Laravel Edition
 
 A classic Snake game built using PHP and the Laravel framework.
