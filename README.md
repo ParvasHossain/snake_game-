@@ -1,9 +1,9 @@
-**Here are all three of Game screen, Game over Screen and High score screen.**
+**Here are all three of Game screen,High score screen Game and over Screen.**
 <table>
   <tr>
     <td width="33%"><img src="Snake Game Outputs Images And Videos/Game Screen.jpg.jpeg" alt="Game Screen"></td>
-      <td width="33%"><img src="Snake Game Outputs Images And Videos/Game Over Screen.jpg.jpeg" alt="Game Over Screen"></td>
     <td width="33%"><img src="Snake Game Outputs Images And Videos/High Score Screen.jpg.jpeg" alt="High Score Screen"></td>
+        <td width="33%"><img src="Snake Game Outputs Images And Videos/Game Over Screen.jpg.jpeg" alt="Game Over Screen"></td>
   </tr>
 </table>
 
