@@ -1,3 +1,4 @@
+**Here are all three of Game screen, Game over Screen and High score screen.**
 <table>
   <tr>
     <td width="33%"><img src="Snake Game Outputs Images And Videos/Game Screen.jpg.jpeg" alt="Game Screen"></td>
